@@ -1,95 +1,112 @@
 #include <iostream>
-
 using namespace std;
 
-void Insert(int, int);
-int Delete_By_Value(int value);
-void Delete_By_Index(int input);
-void Display();
-void Append(int value);
-void Reverse(int arr[]);
-int Search_By_Value(int Value);
+void Enqueue(int x);
+int Dequeue();
+int Peek();
+void ReverseQueue();
+bool IsEmpty();
+bool IsFull();
 
-
-int SIZE = 1000;
-int arrr[1000];
-
+int queue[10];
+int rear = -1;
+int front = -1;
 
 int main()
 {
-	for (int i = 0; i < 1000; ++i)
+	
+
+}
+
+void Enqueue(int x)
+{
+	rear = (rear + 1) % 10;
+	if (rear == front)
 	{
-		arrr[i] = i + 1;
+		cout << "queue is full";
+		rear--;
+	}
+	else
+	{
+		queue[rear] = x;
 	}
 }
 
-
-void Insert(int index, int value)
+int Dequeue()
 {
-	arrr[index] = value;
+	if (rear == front)
+	{
+		cout << "queue is empety";
+	}
+	else
+	{
+		int b;
+		b = front;
+		front = (front + 1) / 10;
+		return queue[b];
+	}
 }
 
-int Delete_By_Value(int value)
+int Peek()
 {
-	for (int i = 0; i < 10; ++i)
+	return queue[front+1];
+}
+
+void ReverseQueue()
+{
+	if (rear != front)
 	{
-		if (value == arrr[i])
+		int R = rear;
+		int F = front;
+		int n;
+		int m = (rear - front) / 2;
+		for (int i = 1; i < m; i++)
 		{
-			for (int j = i; j < (10 - 1); j++)
-			{
-				arrr[j] = arrr[j + 1];
-			}
-			SIZE--;
-			return i;
+			n = rear;
+			rear = front + 1;
+			front = n;
+			rear--;
+			front--;
+		}
+
+		rear = F;
+		front = R;
+
+
+		for (int i = front + 1; i = rear; ++i)
+		{
+			cout << queue[i] << "  ";
 		}
 	}
-}
 
-void Delete_By_Index(int input)
-{
-	for (int j = input; j < SIZE - 1; ++j)
+	else
 	{
-		arrr[j] = arrr[j + 1];
-	}
-
-	SIZE--;
-}
-
-void Display()
-{
-	for (int i = 0; i < SIZE; ++i)
-	{
-		cout << arrr[i] << " ";
-	}
-	cout << endl;
-}
-
-void Append(int value)
-{
-	arrr[SIZE-1] = value;
-}
-
-
-void Reverse(int arr[])
-{
-	int n = SIZE - 1;
-	for (int i = 0; i < SIZE / 2; ++i)
-	{
-		int m;
-		m = arr[i];
-		arr[i] = arr[n];
-		arr[n] = m;
-		--n;
-
+		cout << "queue is empety";
 	}
 }
 
-int Search_By_Value(int Value) {
-	for (int i = 0; i < SIZE; ++i)
+bool IsEmpty()
+{
+	if (rear == front)
 	{
-		if (arrr[i] == Value)
-		{
-			return i;
-		}
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
+bool IsFull()
+{
+	if ((rear+1)%10 == front)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
 	}
 }
